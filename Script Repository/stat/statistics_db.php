@@ -7,9 +7,9 @@
 
 function wb_statistics_open() {
 	$mysql_host = 'localhost';
-	$mysql_user = 'otomto_stat';
-	$mysql_password = 'hugo';
-	$mysql_database = 'otomo';
+	$mysql_user = 'your user';
+	$mysql_password = 'your password';
+	$mysql_database = 'your database';
 	$mysql_page_table = 'www_site_stat';
 	$mysql_ua_table = 'useragents';
 	$db_error_string = 'WB Page Statistics DB Error ';
