@@ -1,3 +1,4 @@
+-- mariaDB 10.4
 -- Tabellenstruktur für Tabelle `www_site_stat`
 --
 
