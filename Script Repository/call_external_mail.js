@@ -1,6 +1,6 @@
 function my_em_script() {
-	var email = 'noreply@otomo.at';
-	var subject = 'Kontaktaufnahme';
+	var email = 'noreply@<your domain>';
+	var subject = 'Contact Request';
 	var emailBody = '';
 	document.location = "mailto:"+email+"?subject="+subject+"&body="+emailBody;
 };
