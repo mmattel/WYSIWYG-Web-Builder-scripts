@@ -1,0 +1,19 @@
+<script src="/scripts/js.cookie.js">
+</script>
+<script type="text/javascript">
+  function myCookieRead() {
+    var cookie = Cookies.get('cookie_accepted');
+    if (cookie != "true") {
+      document.getElementById('master_frameCookieLayer').style.visibility='visible';
+      document.getElementById('master_frameCookieLayer').style.display = "block";
+    }
+  }
+
+  function myCookieSet() {
+    Cookies.set('cookie_accepted', 'true', { expires: 365 });
+  }
+
+  function myCookieDelete() {
+    Cookies.remove('cookie_accepted');
+  }
+</script>
