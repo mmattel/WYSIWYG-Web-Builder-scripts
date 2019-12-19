@@ -26,7 +26,7 @@ for css in $(find $pathweb -name '*.css' -or -name '*.js'); do gzip -fkN9 $css; 
 
 for ico in $(find $pathweb/favicons -name '*.ico'); do gzip -fkN9 $ico; done
 
-for font in $(find $pathweb/fonts -name '*.eot' -or -name '*.otf' -or -name '*.svg' -or -name '*.ttf' -or -name '*.woff' -or -name '*.woff2'); do gzip -fkN9 $font; done
+for font in $(find $pathweb/fonts -name '*.eot' -or -name '*.otf' -or -name '*.svg' -or -name '*.ttf' -or -name '*.ttc' -or -name '*.woff' -or -name '*.woff2'); do gzip -fkN9 $font; done
 
 chown -R $webuser:$webgroup $pathweb/*.gz
 
