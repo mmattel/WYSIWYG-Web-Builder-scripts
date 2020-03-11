@@ -1,7 +1,5 @@
 <?php
-wb_validate_login();
-
-function wb_validate_login() {
+function wb_validate_login($userID) {
 	require $_SERVER['DOCUMENT_ROOT'] . '/scripts/auth/auth_users.php';
 
 	$allowedLoginUsers = array_keys(wb_get_local_users());
@@ -10,8 +8,8 @@ function wb_validate_login() {
 	$errorPage = isset($_SESSION['wb_errorpage']) ? $_SESSION['wb_errorpage'] : '/';
 
 	if(isset($_SESSION['wb_username']) && 
-		($_SESSION['wb_username'] == $allowedLoginUsers[0])) {
-		return;
+		($_SESSION['wb_username'] == $allowedLoginUsers[$userID])) {
+		return true;
 	}
 
 #	header('Status: 404', TRUE, 404);
