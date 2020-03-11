@@ -1,22 +1,15 @@
 <?php
-wb_validate_login();
+wb_statistics_validate_login();
 wb_statistics_generate();
 
-function wb_validate_login() {
-	require $_SERVER['DOCUMENT_ROOT'] . '/scripts/auth/auth_users.php';
-
-	$allowedLoginUsers = array_keys(wb_get_local_users());
-	session_start();
-
-	$errorPage = isset($_SESSION['wb_errorpage']) ? $_SESSION['wb_errorpage'] : '/';
-
-	if(isset($_SESSION['wb_username']) && 
-		($_SESSION['wb_username'] == $allowedLoginUsers[0])) {
+function wb_statistics_validate_login() {
+	require $_SERVER['DOCUMENT_ROOT'] . '/scripts/auth/auth_header.php';
+	# access only for user with ID = 0
+	if (wb_validate_login(0)) {
+		$user = $_SESSION['wb_username'];
+		error_log("Showing SiteStatistics for User: $user");
 		return;
 	}
-
-#	header('Status: 404', TRUE, 404);
-	header('Location:' . $errorPage);
 	exit;
 }
 
@@ -102,8 +95,16 @@ function wb_statistics_graph($width, $height, $total_hits, $unique_hits) {
 	$graph->setTtfFont($_SERVER['DOCUMENT_ROOT'] . '/scripts/phpgraphlib/arial.ttf');
 	$graph->setFontSize(10);
 	$graph->setLogarithmic(false);
-	$graph->addData($unique_hits);
-	$graph->setTitle('Site Statistics');
+	$title = 'Site Statistics';
+	if ($_SESSION['wb_piecharttype'] === 'pieunique') {
+			$graph->addData($unique_hits);
+			$title.= ' Unique Hits';
+		} else {
+			$graph->addData($total_hits);
+			$title.= ' Total Hits';
+	}
+#	$graph->addData($unique_hits);
+	$graph->setTitle($title);
 	$graph->setDataValues(true);
 	$graph->setXValuesHorizontal(true);
 	$graph->setGrid(true);

@@ -8,10 +8,13 @@ function wb_statistics_update($pagename='') {
 		$mysql_page_table = $return[1];
 		$mysql_ua_table = $return[2];
 		$db_error_string = $return[3] . 'Write ';
+		$user_agent = isset($_SERVER['HTTP_USER_AGENT'])
+					? strtolower($_SERVER['HTTP_USER_AGENT'])
+					: 'userAgent not sent';
 		$sql_page_name = mysqli_real_escape_string($db, $pagename);
 		$sql_remote_addr = mysqli_real_escape_string($db, $_SERVER['REMOTE_ADDR']);
-		$sql_user_agent_string = mysqli_real_escape_string($db, $_SERVER['HTTP_USER_AGENT']);
-		$sql_user_agent_hash = sha1($_SERVER['HTTP_USER_AGENT']);
+		$sql_user_agent_string = mysqli_real_escape_string($db, $user_agent);
+		$sql_user_agent_hash = sha1($user_agent);
 		$sql_time = date("Y-m-d H:i:s", $_SERVER['REQUEST_TIME']);
 
 		# write tp page table
@@ -38,7 +41,9 @@ function wb_IsSearchBot() {
 					'spider',
 					'ia_archiver',
 					'sogou');
-	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+	$user_agent = isset($_SERVER['HTTP_USER_AGENT'])
+				? strtolower($_SERVER['HTTP_USER_AGENT'])
+				: 'userAgent not sent';
 	foreach ($agents as $agent) {
 		if (strpos($agent, $user_agent) !== false) {
 			return true;
